@@ -8,13 +8,7 @@
 
 <body>
 <!-- Title -->
-<table align="center" width="80%" >
-    <tr >
-        <td>
-            <img width="100%"  src="../images/banner.JPG" style="margin: 5px;border: 2px #990033 solid; border-radius: 10px ;" />            
-        </td>
-    </tr>
-</table>
+<?php include '../utils/header.php'; ?>
 <!-- main -->
 <div class="main">
 
@@ -26,43 +20,38 @@
     include '../utils/db.php';
     include '../utils/slideAPI.php';
     include '../utils/error_handler.php';
-    $dir = "../uploads/";
     $name = $_POST['name'];
+    $uni = "1";
+    $coll = "1";
+    $dept = "1";
+    $sem = "1";
     $sub = "1";
     $desc = $_POST['desc'];
-    $path = "path";
-    $result = mp_slide_add($name, $sub, $desc, $path);
-    
-    if(!$result)mp_notify_fail ("تعذر اضافة المادة");
-    else 
-        mp_notify_success ("تمت اضافة المحاضرة");
-    
     $file_type = $_FILES['slide_file']['type'];
-    $file_name = $_FILES['slide_file']['name'] = "new.JPG";
+    $file_name = $_FILES['slide_file']['name'];
     $file_size = $_FILES['slide_file']['size'];
-    $file_error = $_FILES['slide_file']['error'];
-    echo "name : ".$file_name."<br />";
-    echo "type : ".$file_type."<br />";
-    echo "size : ".$file_size."<br />";
-    echo "error : ".$file_error."<br />";
-    $check_uploaded = move_uploaded_file ($_FILES['slide_file'] ['tmp_name'],$dir.$file_name);
-    
-    if($check_uploaded) echo "OK"; else echo "ERR";
-
-$target_dir = "uploads/";
-$target_file = $target_dir . basename($_FILES["slide_file"]["name"]);
-$uploadOk = 1;
-$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-// Check if image file is a actual image or fake image
-if(isset($_POST["submit"])) {
-    $check = getimagesize($_FILES["slide_file"]["tmp_name"]);
-    if($check !== false) {
-        echo "File is an image - " . $check["mime"] . ".";
-        $uploadOk = 1;
-    } else {
-        echo "File is not an image.";
-        $uploadOk = 0;
+    $path = "../uploads/".$uni."/".$coll."/".$dept."/".$sem."/".$sub."/".$file_name;
+    $filter = file_filter($file_type);
+    $result = mp_slide_add($name, $sub, $desc, $path);
+    if($result){
+    $check_uploaded = move_uploaded_file ($_FILES['slide_file'] ['tmp_name'],$path);
+    if($check_uploaded) mp_notify_success ("تمت اضافة المحاضرة");
+    else mp_notify_fail("مشكلة رفع");
     }
+    else{
+        mp_notify_fail("مشكلة قاعة بيانات");
+    }
+       
+function file_filter($type){
+    echo $type;
+    $ext = array(
+        "image/jpeg","application/pdf",
+        "application/vnd.ms-powerpoint",
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        );
+    if(!in_array($type, $ext))
+    echo "NOT LEGAL TYPE";
+    else echo "LEGAL";
 }
 ?>
 </div>

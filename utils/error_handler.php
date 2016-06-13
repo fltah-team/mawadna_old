@@ -1,12 +1,10 @@
 <?php
  function mp_notify_success($name){
- echo '<div id="success_notice" class="alert-box success"><span >نجاح :   </span>'.$name.'</div>';
- die();
+ echo '<div id="success_notice" class="alert-box success">'.$name.'</div>';
  }
  function mp_notify_fail($name){
      echo '<div id="success_notice"   class="alert-box error">
      <span>خطأ :   </span>'.$name.'</div>';
-     die();
  }
 
 /*

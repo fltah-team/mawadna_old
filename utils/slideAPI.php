@@ -4,48 +4,59 @@ function mp_slide_add($name , $sub , $desc , $path){
 	global $fp_handle;
 	$n_name    = @mysql_real_escape_string(strip_tags($name),$fp_handle);
 	$n_sub    = (int)$sub;
-	$n_desc    = mysql_real_escape_string(strip_tags($desc),$fp_handle);
+	$n_desc    = @mysql_real_escape_string(strip_tags($desc),$fp_handle);
 	$n_path    = @mysql_real_escape_string(strip_tags($path),$fp_handle);
-	$query = ("INSERT INTO `slide` VALUE(NULL,'$n_name','$n_sub','$n_desc',$n_path)");echo $query;
-	$qresult = mysql_query($query);
+	$query = "INSERT INTO `slide` VALUE(NULL,'$n_name','$n_sub','$n_desc','$n_path')";
+	$qresult = @mysql_query($query);
 	if(!$qresult) return false ;
 	@mysql_free_result($qresult);
 	return true ;
 	}
-    
+   
+	// SELSECT ALL
+function mp_slide_get($extra = ''){
+	$query = sprintf("SELECT * FROM `slide` %s",$extra);
+	$qresult = @mysql_query($query);
+    if(!$qresult)
+       return -1 ; 
+	else{
+	$rcount = mysql_num_rows($qresult);
+       if($rcount == 0 )
+       return 0 ;
+    }
+	$slides = array();
+	for($i = 0 ; $i < $rcount ; $i++)
+		$slides[@count($slides)] = @mysql_fetch_object($qresult);
+		
+	@mysql_free_result($qresult);
+	return $slides ; 
+}
+
+	// SELECT BY ID
+function mp_slide_get_by_id($id){
+	$uid = (int)$id;
+	if($uid == 0) return NULL ;
+	$slides = mp_slide_get("WHERE `id` = ".$uid);
+	if($slides == NULL) return NULL ;
+	$slide = $slides[0];
+	return $slide ;
+	}
+    // GET LAST ID
+ function mp_slide_get_last_id(){
+	$slides = mp_slide_get("ORDER BY `id` DESC LIMIT 1");
+	if($slides == NULL) return NULL ;
+	$slide = $slides[0];
+	return $slide->id ;
+} 
     /*
      * ------------------------------------------------------
      * ---------------------------------------------------
      * -------------------------------------------------------
      * ---------------------------------------------------
      */
-	// SELSECT ALL
-function fp_users_get($extra = ''){
-        $res = array();
-	global $fp_handle ;
-	$query = sprintf("SELECT * FROM `employee` %s",$extra);
-	$qresult = @mysql_query($query);
-	
-        if(!$qresult)
-            return -1 ; 
-	else{
-	$rcount = mysql_num_rows($qresult);
-        if($rcount == 0 )
-            return 0 ;
-        }
-	
-	$users = array();
-	
-	for($i = 0 ; $i < $rcount ; $i++)
-		$users[@count($users)] = @mysql_fetch_object($qresult);
-		
-	@mysql_free_result($qresult);
-	
-	return $users ; 
-}
 
-        function fp_user_get_num_rows(){
-        global $fp_handle ;
+
+function fp_user_get_num_rows(){
 	$query = sprintf("SELECT * FROM `employee`");
 	$qresult = @mysql_query($query);
 	
@@ -54,17 +65,7 @@ function fp_users_get($extra = ''){
         return mysql_num_rows($qresult);
 }
 
-	// SELECT BY ID
-function fp_users_get_by_id($id){
-	$uid = (int)$id;
-	if($uid == 0) return NULL ;
-	
-	$users = fp_users_get("WHERE `id` = ".$uid);
-	if($users == NULL) return NULL ;
-	$user = $users[0];
-	return $user ;
-	}
-	
+
 	// SELECT BY Username
 function fp_users_get_by_username($un){
 	//$uun = @mysql_real_escape_string(strip_tags($un),$fp_handle);

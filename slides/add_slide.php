@@ -8,13 +8,7 @@
 
 <body>
 <!-- Title -->
-<table align="center" width="80%" >
-    <tr >
-        <td>
-            <img width="100%"  src="../images/banner.JPG" style="margin: 5px;border: 2px #990033 solid; border-radius: 10px ;" />            
-        </td>
-    </tr>
-</table>
+<?php include '../utils/header.php';?>
 <!-- main -->
 <div class="main">
 
@@ -28,7 +22,7 @@
     <td >&nbsp;</td>
   </tr>
   <tr>
-    <td align="right" width="58%"><input class="textFiels" name="name" type="text" placeholder="عنوان المحاضرة" id="name" size="45" maxlength="30" /></td>
+    <td align="right" width="58%"><input class="textFiels" name="name" type="text" placeholder="عنوان المحاضرةf" id="name" size="45" /></td>
     <td align="center" width="42%">عنوان المحاضرة</td>
     </tr>
       <tr>
@@ -36,7 +30,7 @@
     <td>&nbsp;</td>
   </tr>
         <tr>
-            <td align="right" width="58%"><textarea class="textFiels" style="width: 400px; height: 200px" name="desc" type="text" id="desc" size="100" maxlength="1500" ></textarea></td>
+            <td align="right" width="58%"><textarea class="textFiels" style="width: 400px; height: 200px" name="desc" type="text" id="desc" size="100" ></textarea></td>
     <td align="center" width="42%">وصف المحاضرة</td>
     </tr>
       <tr>
@@ -143,7 +137,8 @@
 }
 
   </script>
-<?php include '../utils/footer.php'; ?>
+
 </div>
+<?php include '../utils/footer.php'; ?> 
 </body>
 </html>

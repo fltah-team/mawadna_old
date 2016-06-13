@@ -13,11 +13,14 @@ if(!$fp_handle)	die("connection prolem");
 $sel = mysql_select_db($fp_dbname);
 
 if(!$sel){
-	fp_db_close();
+	mp_db_close();
 	die("selection prolem");
 	}
 //die("OK");
 //mysql_close($fp_handle);
 @mysql_query("SET NAMES 'utf8'");
-
+function mp_db_close(){
+	global $fp_handle;
+	@mysql_close($fp_handle);
+	}
 ?>
