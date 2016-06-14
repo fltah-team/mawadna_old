@@ -9,6 +9,8 @@
 <body>
 <!-- Title -->
 <?php include 'header.php';?>
+<!-- Menu -->
+<?php include 'menu.php';?>
 <!-- main -->
 <div class="form">
 <br />

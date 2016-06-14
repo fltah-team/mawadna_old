@@ -10,6 +10,7 @@
 <!-- Title -->
 <?php include 'header.php';?>
 <!-- main -->
+<div id="main" style="height: 400px" >
 <h2 align="center" class="adress">حفظ المحاضرة</h2>
 <br />
     <?php
@@ -22,24 +23,27 @@
 ?>
 <table dir="rtl" align="center" border="0" class="table" width="60%">
     <tr class="table_header">
-        <td width="60%" align="center">اسم المحاضرة</td>
-        <td width="20%" align="center">نوع الملف</td>
+        <td width="60%" align="center">القسم</td>
+        <td width="20%" align="center"> السمستر</td>
         <td width="10%" align="center">عرض</td>
-        <td width="10%" align="center">تحميل</td>
     </tr>
     <?php
-    for($i = 0 ; $i < $scount ; $i++){
+    for($i = 0 ; $i < 2; $i++){
         $slide = $slides[$i];
         $path_desc = pathinfo($slide->path);
     ?>
     <tr class="table_data">
         <td align="center"><?php echo $slide->name?></td>
-        <td align="center"><?php echo $path_desc['extension']?></td>
+        <td align="center">
+            <select >
+                <option value="1" >الأول</option>
+            </select>
+        </td>
         <td align="center">عرض</td>
-        <td align="center">تحميل</td>
     </tr>
     <?php } ?>
 </table>
+</div>
 <?php include 'footer.php'; ?> 
 </body>
 </html>
