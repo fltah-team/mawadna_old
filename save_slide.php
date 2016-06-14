@@ -2,24 +2,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>حفظ المحاضرة</title>
-<link href="../style/pageStyle.css" rel="stylesheet" type="text/css" />
+<title>اضافة محاضرة جديدة</title>
+<link href="style/pageStyle.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
 <!-- Title -->
-<?php include '../utils/header.php'; ?>
+<?php include 'header.php';?>
 <!-- main -->
-<div class="main">
-
-<div class="login">
-    <h2 align="center" class="adress">حفظ المحاضرة</h2>
+<div class="form" style="height: 450px">
 <br />
-<div id="result" style="width: 50% ; margin: 0 auto">
-    <?php
-    include '../utils/db.php';
-    include '../utils/slideAPI.php';
-    include '../utils/error_handler.php';
+<?php
+    include 'utils/db.php';
+    include 'utils/slideAPI.php';
+    include 'utils/error_handler.php';
     $name = $_POST['name'];
     $uni = "1";
     $coll = "1";
@@ -55,12 +51,6 @@ function file_filter($type){
 }
 ?>
 </div>
-<div style="margin: 0 auto; text-align: center ; width: 60%;" id="reponse">
-    <span id="res_stattus"></span>
-</div>
-</div>
-
-<?php include '../utils/footer.php'; ?>
-</div>
+<?php include 'footer.php'; ?> 
 </body>
 </html>

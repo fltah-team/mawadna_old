@@ -13,13 +13,13 @@
 
 <body>
 <!-- Title -->
-<?php include './utils/header.php';?>
+<?php include 'header.php';?>
 <!-- main -->
 
 <div class="login">
 <br />
     
-<?php include 'utils/footer.php'; ?>
+<?php include 'footer.php'; ?>
 </div>
 </body>
 </html>
